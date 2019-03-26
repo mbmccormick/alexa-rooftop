@@ -1,0 +1,49 @@
+{
+  "interactionModel": {
+      "languageModel": {
+          "invocationName": "rooftop",
+          "intents": [
+              {
+                  "name": "TAPLIST",
+                  "samples": [
+                      "tap list",
+                      "the tap list",
+                      "beers",
+                      "the beers",
+                      "beer list",
+                      "the beer list",
+                      "on tap",
+                      "what's on tap"
+                  ]
+              },
+              {
+                  "name": "FOODTRUCK",
+                  "samples": [
+                      "food truck",
+                      "the food truck",
+                      "food trucks",
+                      "the food trucks"
+                  ]
+              },
+              {
+                  "name": "HOURS",
+                  "samples": [
+                      "hours",
+                      "the hours",
+                      "tap room hours",
+                      "the tap room hours"
+                  ]
+              },
+              {
+                  "name": "AMAZON.CancelIntent"
+              },
+              {
+                  "name": "AMAZON.HelpIntent"
+              },
+              {
+                  "name": "AMAZON.StopIntent"
+              }
+          ]
+      }
+  }
+}

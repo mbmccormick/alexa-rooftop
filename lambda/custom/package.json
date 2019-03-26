@@ -1,0 +1,17 @@
+{
+  "name": "alexa-rooftop",
+  "version": "1.0.0",
+  "description": "An Alexa Hello World tutorial.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt McCormick",
+  "dependencies": {
+    "ask-sdk-core": "^2.5.1",
+    "ask-sdk-model": "^1.13.0",
+    "request": "^2.88.0",
+    "cheerio": "^1.0.0-rc.2",
+    "moment": "^2.24.0"
+  }
+}

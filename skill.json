@@ -1,0 +1,31 @@
+{
+    "manifest": {
+      "publishingInformation": {
+        "locales": {
+          "en-US": {
+            "summary": "Find the tap list, food truck, and tap room hours for Rooftop Brewing Company. Right from your Alexa device!",
+            "examplePhrases": [
+              "Alexa, ask Rooftop for the tap list",
+              "Alexa, ask Rooftop for the food truck",
+              "Alexa, ask Rooftop for the hours"
+            ],
+            "name": "Rooftop",
+            "description": "Find the tap list, food truck, and tap room hours for Rooftop Brewing Company. This skill makes it easy to find out what's going on at the Rooftop tap room in Seattle's Queen Anne neighborhood. Right from your Alexa device!"
+          }
+        },
+        "isAvailableWorldwide": true,
+        "testingInstructions": "N/A",
+        "category": "RESTAURANT_BOOKING_INFO_AND_REVIEW",
+        "distributionCountries": []
+      },
+      "apis": {
+        "custom": {
+          "endpoint": {
+            "sourceDir": "lambda/custom"
+          }
+        }
+      },
+      "manifestVersion": "1.0"
+    }
+  }
+  
