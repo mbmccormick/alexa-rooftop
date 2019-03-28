@@ -30,7 +30,7 @@ const LaunchRequestHandler = {
                     foodTrucks.length > 1) {
                     message += "And ";
                 }
-                message += foodTrucks[i].name + " will be serving " + implode(foodTrucks[i].cuisine) + " from " + moment(foodTrucks[i].startTime).format("h:mm A") + " to " + moment(foodTrucks[i].endTime).format("h:mm A") + ".";
+                message += foodTrucks[i].name + " will be serving " + implode(foodTrucks[i].cuisine) + " food from " + moment(foodTrucks[i].startTime).format("h:mm A") + " to " + moment(foodTrucks[i].endTime).format("h:mm A") + ".";
             }
         }
 
@@ -79,7 +79,7 @@ const FoodTruckRequestHandler = {
                     foodTrucks.length > 1) {
                     message += "And ";
                 }
-                message += foodTrucks[i].name + " will be serving " + implode(foodTrucks[i].cuisine) + " from " + moment(foodTrucks[i].startTime).format("h:mm A") + " to " + moment(foodTrucks[i].endTime).format("h:mm A") + ".";
+                message += foodTrucks[i].name + " will be serving " + implode(foodTrucks[i].cuisine) + " food from " + moment(foodTrucks[i].startTime).format("h:mm A") + " to " + moment(foodTrucks[i].endTime).format("h:mm A") + ".";
             }
         }
 
