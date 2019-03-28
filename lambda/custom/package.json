@@ -12,6 +12,7 @@
     "ask-sdk-model": "^1.13.0",
     "request": "^2.88.0",
     "cheerio": "^1.0.0-rc.2",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23"
   }
 }

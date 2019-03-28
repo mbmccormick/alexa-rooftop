@@ -1,14 +1,16 @@
-const Alexa = require("ask-sdk-core");
+const alexa = require("ask-sdk-core");
 const request = require("request");
 const cheerio = require("cheerio");
-const moment = require("moment");
+const moment = require("moment-timezone");
+
+moment.tz.setDefault("America/Los_Angeles");
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return handlerInput.requestEnvelope.request.type === "LaunchRequest";
     },
     async handle(handlerInput) {
-        console.log("Handling LaunchRequest");
+        console.log("INFO: Handling LaunchRequest");
 
         var message = "";
         
@@ -23,12 +25,12 @@ const LaunchRequestHandler = {
             message += "There is no food truck booked for today.";
         } 
         else {
-            for (var i = 0; i++; i < foodTrucks.length) {
+            for (var i = 0; i < foodTrucks.length; i++) {
                 if (i == foodTrucks.length - 1 &&
                     foodTrucks.length > 1) {
                     message += "And ";
                 }
-                message += foodTrucks[i].name + " will be serving " + implode(foodTrucks[i].cuisine) + " from " + moment(foodTrucks[i].startTime).format("h:mma") + " to " + moment(foodTrucks[i].endTime).format("h:mma") + ".";
+                message += foodTrucks[i].name + " will be serving " + implode(foodTrucks[i].cuisine) + " from " + moment(foodTrucks[i].startTime).format("h:mm A") + " to " + moment(foodTrucks[i].endTime).format("h:mm A") + ".";
             }
         }
 
@@ -44,7 +46,7 @@ const TapListRequestHandler = {
             handlerInput.requestEnvelope.request.intent.name === "TAPLIST";
     },
     async handle(handlerInput) {
-        console.log("Handling " + handlerInput.requestEnvelope.request.intent.name);
+        console.log("INFO: Handling " + handlerInput.requestEnvelope.request.intent.name);
 
         var message = "";
         
@@ -63,7 +65,7 @@ const FoodTruckRequestHandler = {
             handlerInput.requestEnvelope.request.intent.name === "FOODTRUCK";
     },
     async handle(handlerInput) {
-        console.log("Handling " + handlerInput.requestEnvelope.request.intent.name);
+        console.log("INFO: Handling " + handlerInput.requestEnvelope.request.intent.name);
 
         var message = "";
         
@@ -72,12 +74,12 @@ const FoodTruckRequestHandler = {
             message += "There is no food truck booked for today.";
         } 
         else {
-            for (var i = 0; i++; i < foodTrucks.length) {
+            for (var i = 0; i < foodTrucks.length; i++) {
                 if (i == foodTrucks.length - 1 &&
                     foodTrucks.length > 1) {
                     message += "And ";
                 }
-                message += foodTrucks[i].name + " will be serving " + implode(foodTrucks[i].cuisine) + " from " + moment(foodTrucks[i].startTime).format("h:mma") + " to " + moment(foodTrucks[i].endTime).format("h:mma") + ".";
+                message += foodTrucks[i].name + " will be serving " + implode(foodTrucks[i].cuisine) + " from " + moment(foodTrucks[i].startTime).format("h:mm A") + " to " + moment(foodTrucks[i].endTime).format("h:mm A") + ".";
             }
         }
 
@@ -93,7 +95,7 @@ const HoursRequestHandler = {
             handlerInput.requestEnvelope.request.intent.name === "HOURS";
     },
     async handle(handlerInput) {
-        console.log("Handling " + handlerInput.requestEnvelope.request.intent.name);
+        console.log("INFO: Handling " + handlerInput.requestEnvelope.request.intent.name);
 
         var message = "";
         
@@ -112,7 +114,7 @@ const HelpRequestHandler = {
             handlerInput.requestEnvelope.request.intent.name === "AMAZON.HelpIntent";
     },
     handle(handlerInput) {
-        console.log("Handling " + handlerInput.requestEnvelope.request.intent.name);
+        console.log("INFO: Handling " + handlerInput.requestEnvelope.request.intent.name);
 
         var message = "";
         message += "This skill can help you find the tap list, food truck, and tap room hours for Rooftop Brewing Company in Seattle. Which one would you like?";
@@ -134,7 +136,7 @@ const StopRequestHandler = {
                 handlerInput.requestEnvelope.request.intent.name === "AMAZON.StopIntent");
     },
     handle(handlerInput) {
-        console.log("Handling " + handlerInput.requestEnvelope.request.intent.name);
+        console.log("INFO: Handling " + handlerInput.requestEnvelope.request.intent.name);
 
         return handlerInput.responseBuilder
             .getResponse();
@@ -146,7 +148,7 @@ const ErrorHandler = {
         return true;
     },
     handle(handlerInput, error) {
-        console.log("Handling error: " + error.message);
+        console.log("ERROR: " + error.message);
 
         var message = "";
         message += "Sorry, an error occurred. If you need help, just ask for help.";
@@ -161,6 +163,8 @@ function getRooftopTapList() {
     return new Promise(((resolve, reject) => {
         request.get("https://docs.google.com/spreadsheets/d/1UDZQ-tmvlgWh13rmS27Ek_y--qN5Z-AKvjmczICIdnQ/pubhtml?headers=false&amp;gid=933615958&amp;range=A1:D22", function (err, response, body) {
             if (err) {
+                console.log("ERROR: " + err);
+
                 reject(err);
             }
         
@@ -184,6 +188,8 @@ function getRooftopFoodTrucks() {
     return new Promise(((resolve, reject) => {
         request.get("https://www.seattlefoodtruck.com/api/events?page=1&for_locations=414&with_active_trucks=true&include_bookings=true&with_booking_status=approved", function (err, response, body) {
             if (err) {
+                console.log("ERROR: " + err);
+                
                 reject(err);
             }
         
@@ -214,6 +220,8 @@ function getRooftopHours() {
     return new Promise(((resolve, reject) => {
         request.get("http://rooftopbrewco.com/contact", { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0" } }, function (err, response, body) {
             if (err) {
+                console.log("ERROR: " + err);
+                
                 reject(err);
             }
         
@@ -256,7 +264,7 @@ function implode(list) {
     }
 }
 
-const skillBuilder = Alexa.SkillBuilders.custom();
+const skillBuilder = alexa.SkillBuilders.custom();
 
 exports.handler = skillBuilder
     .addRequestHandlers(
