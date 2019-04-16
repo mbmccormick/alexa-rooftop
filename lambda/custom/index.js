@@ -34,6 +34,8 @@ const LaunchRequestHandler = {
             }
         }
 
+        message = alexa.escapeXmlCharacters(message);
+
         return handlerInput.responseBuilder
             .speak(message)
             .getResponse();
@@ -53,6 +55,8 @@ const TapListRequestHandler = {
         var beers = await getRooftopTapList();
         message += "Here's what's on tap today: " + implode(beers) + ". ";
 
+        message = alexa.escapeXmlCharacters(message);
+        
         return handlerInput.responseBuilder
             .speak(message)
             .getResponse();
@@ -83,6 +87,8 @@ const FoodTruckRequestHandler = {
             }
         }
 
+        message = alexa.escapeXmlCharacters(message);
+        
         return handlerInput.responseBuilder
             .speak(message)
             .getResponse();
@@ -102,6 +108,8 @@ const HoursRequestHandler = {
         var schedule = await getRooftopHours();
         message += "Rooftop is open today from " + moment(schedule.open).format("h:mm A") + " to " + moment(schedule.close).format("h:mm A") + ". ";
 
+        message = alexa.escapeXmlCharacters(message);
+        
         return handlerInput.responseBuilder
             .speak(message)
             .getResponse();
@@ -122,6 +130,9 @@ const HelpRequestHandler = {
         var prompt = "";
         prompt += "Please choose tap list, food truck schedule, or tap room hours.";
 
+        message = alexa.escapeXmlCharacters(message);
+        prompt = alexa.escapeXmlCharacters(prompt);
+        
         return handlerInput.responseBuilder
             .speak(message)
             .reprompt(prompt)
@@ -152,6 +163,8 @@ const ErrorHandler = {
 
         var message = "";
         message += "Sorry, an error occurred. If you need help, just ask for help.";
+
+        message = alexa.escapeXmlCharacters(message);
 
         return handlerInput.responseBuilder
             .speak(message)
